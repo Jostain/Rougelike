@@ -3,7 +3,7 @@ package GameEngine;
 import java.util.ArrayList;
 
 public class Body {
-	private BodyPart soul = new BodyPart("Soul", null,null,null,100);
+	private BodyPart soul = new BodyPart("Soul",null,100);
 	
 	public Body()
 	{
@@ -20,6 +20,10 @@ public class Body {
 	public String toString()
 	{
 		return null;
+		
+	}
+	public void attack(int accuracy,int attackType, int force, String targetPart) {
+		soul.attack(accuracy,attackType, force, targetPart);
 		
 	}
 }

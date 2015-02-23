@@ -29,10 +29,8 @@ public class Entity implements IEntity {
 
 	public boolean initiateTurn() {
 		grid.getGraphics().CenterOnCoordinate(x - 16, y - 8);
-		System.out.println("Initiating Turn");
-		if (!controllable) {
-			AI();
-		}
+		System.out.println("Initiating Turn for "+name);
+		
 		return controllable;
 	}
 
@@ -40,12 +38,12 @@ public class Entity implements IEntity {
 	public int act(int key) {
 
 		if (controllable == false) {
-			AI();
-			return 0;
+			
+			System.out.println("running ai");
+			return AI();
 
 		} else {
-			System.out.println(key);
-			System.out.println(actionPoints);
+			
 			if (actionPoints > 0) {
 				if (key == 0) {
 					System.out.println("walking north");
@@ -97,7 +95,7 @@ public class Entity implements IEntity {
 	}
 
 	@Override
-	public void attack(int damage, IEntity attacker) {
+	public void attack(int Accuracy, int attakccType, int damage,String s, IEntity attacker) {
 		target = attacker;
 		System.out.println(target.getName() + " attacks " + name + " for "
 				+ damage + " damage!");
@@ -169,20 +167,21 @@ public class Entity implements IEntity {
 		this.actionPoints = actionPoints;
 	}
 
-	public void AI() {
+	public int AI() {
 
-		while (actionPoints > 0) {
+		if (actionPoints > 0) {
 			if (target.getX() + 1 == x && target.getY() == y
 					|| target.getX() - 1 == x && target.getY() == y
 					|| target.getX() == x && target.getY() == y + 1
 					|| target.getX() == x && target.getY() == y - 1) {
-				target.attack(5, this);
+				target.attack(100,0,5,null, this);
 				actionPoints = actionPoints - speed;
 				grid.getGraphics().CenterOnCoordinate(x - 16, y - 8);
 				for (IEntity e : grid.getEntities()) {
 					e.notOnTurn();
+					
 				}
-
+				return -1;
 			} else {
 				ArrayList<Integer> list = grid.getPath(x, y, target.getX(),
 						target.getY());
@@ -192,10 +191,20 @@ public class Entity implements IEntity {
 				for (IEntity e : grid.getEntities()) {
 					e.notOnTurn();
 				}
+				return -1;
 			}
-			grid.getGraphics().repaint();
+			
 		}
+		else{
 		actionPoints = 100;
+		System.out.println("end Turn");
+		return 0;
+		}
+	}
 
+	@Override
+	public Body getBody() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

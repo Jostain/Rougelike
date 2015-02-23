@@ -4,20 +4,16 @@ import java.util.ArrayList;
 
 public class BodyPart {
 		private String name;
-		private Mat core;
-		private Mat flesh;
-		private Mat skin;
-		private Mat clothes;
-		private Mat armor;
+		private Organs[] organs;
+		private String clothes = null;
+		private String armor = null;
 		private int importance;
 		private boolean severed = false;
 		private ArrayList<BodyPart> bodyParts = new ArrayList<BodyPart>();
-		public BodyPart(String name, Mat core, Mat flesh, Mat skin,int importance)
+		public BodyPart(String name, Organs[] organs,int importance)
 		{
 			this.name = name;
-			this.core=core;
-			this.flesh=flesh;
-			this.skin=skin;
+			this.organs = organs;
 			this.importance = importance;
 			
 		}
@@ -71,6 +67,23 @@ public class BodyPart {
 		public void setSevered(boolean severed) {
 			this.severed = severed;
 		}
+		public String getClothes() {
+			return clothes;
+		}
+		public void setClothes(String clothes) {
+			this.clothes = clothes;
+		}
+		public String getArmor() {
+			return armor;
+		}
+		public void setArmor(String armor) {
+			this.armor = armor;
+		}
+		public void attack(int accuracy,int attackType,int Force,String damageType)
+		{
+			
+		}
+	
 	}
 
 

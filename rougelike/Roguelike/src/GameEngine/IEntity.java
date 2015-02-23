@@ -7,7 +7,7 @@ public interface IEntity {
 	int getY();
 	int act(int i);
 	void setSprite(int sprite);
-	void attack(int damage,IEntity attacker);
+	//void attack(int damage,String bodyPart,IEntity attacker);
 	int getHealth();
 	String getName();
 	void setName(String string);
@@ -18,6 +18,7 @@ public interface IEntity {
 	public boolean initiateTurn();
 	public void endTurn();
 	public void notOnTurn();
-	
+	public Body getBody();
+	void attack(int accuracy,int attackType, int force, String targetPart, IEntity attacker);
 	
 }

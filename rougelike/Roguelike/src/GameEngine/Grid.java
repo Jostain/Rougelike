@@ -109,14 +109,8 @@ public class Grid implements IGrid {
 			currentActor++;
 			if(currentActor == entities.size())
 				currentActor=0;
-			while (!entities.get(currentActor).initiateTurn())
-			{
-				currentActor++;
-				if(currentActor == entities.size())
-					currentActor=0;
-			}	
+			entities.get(currentActor).initiateTurn();	
 		}
-		graphics.repaint();
 		return 0;
 	}
 

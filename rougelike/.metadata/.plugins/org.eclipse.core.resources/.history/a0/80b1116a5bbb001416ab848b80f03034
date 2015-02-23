@@ -1,0 +1,120 @@
+package GameEngine;
+
+public class Marker implements IEntity{
+	private int x;
+	private int y;
+	public Marker(int x ,int y)
+	{
+		this.x = x;
+		this.y = y;
+	}
+	@Override
+	public int getSprite() {
+		// TODO Auto-generated method stub
+		return 10;
+	}
+
+	@Override
+	public void setXY(int x, int y) {
+		// TODO Auto-generated method stub
+		this.x = x;
+		this.y = y;
+	}
+
+	@Override
+	public int getX() {
+		// TODO Auto-generated method stub
+		return x;
+	}
+
+	@Override
+	public int getY() {
+		// TODO Auto-generated method stub
+		return y;
+	}
+
+	@Override
+	public int act(int i) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setSprite(int sprite) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void attack(int damage, String bodyPart, IEntity attacker) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getHealth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setName(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean getControllable() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setControllable(boolean controllable) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getActionPoints() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setActionPoints(int points) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean initiateTurn() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void endTurn() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notOnTurn() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Body getBody() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

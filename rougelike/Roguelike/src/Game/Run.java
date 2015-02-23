@@ -1,29 +1,35 @@
 package Game;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import Renderer.*;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 
 import GameEngine.*;
 import Renderer.GameField;
 
 public class Run extends JFrame {
 	Grid grid = new Grid(45, 45);
-	IEntity player = new Entity(grid,null,"Player",true,1);
+	IEntity player = new Human(grid,null,"Player",true,1);
 	GameField world = new GameField(grid);
+	Announcer announcer = new Announcer();
 	boolean attacking = false;
 	int currentActor = 0;
 	KeyListener kevin = new KeyListener();
-	int key= 0;
+	int key= -1;
 	boolean gameOver = false;
 	
 
 	public Run() {
-		
+		add(announcer);
 		add(world);
+		
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		pack();
@@ -32,17 +38,7 @@ public class Run extends JFrame {
 		player.setSprite(1);
 		addKeyListener(kevin);
 		Body body = new Body();
-		body.growBodypart(new BodyPart("head", null, null, null, currentActor), "Soul");
-		body.growBodypart(new BodyPart("neck", null, null, null, currentActor), "head");
-		body.growBodypart(new BodyPart("torso", null, null, null, currentActor), "neck");
-		body.growBodypart(new BodyPart("stomach", null, null, null, currentActor), "torso");
-		body.growBodypart(new BodyPart("left_shoulder", null, null, null, currentActor), "torso");
-		body.growBodypart(new BodyPart("right_shoulder", null, null, null, currentActor), "torso");
-		body.growBodypart(new BodyPart("left_upper_arm", null, null, null, currentActor), "left_shoulder");
-		body.growBodypart(new BodyPart("left_elbow", null, null, null, currentActor), "left_upper_arm");
-		body.growBodypart(new BodyPart("left_lower_arm", null, null, null, currentActor), "left_elbow");
-		body.growBodypart(new BodyPart("left_hand", null, null, null, currentActor), "left_lower_arm");
-		body.severBodyPart("left_shoulder");
+		
 		
 		grid.setWalkable(10, 10, false);
 		grid.setTileType(10, 10, 0);
@@ -52,11 +48,24 @@ public class Run extends JFrame {
 		System.out.println("");
 		System.out.println((grid.getPath(0, 0, 5, 5)));
 		System.out.println(grid.addEntity(1, 1, player));		
-		System.out.println(grid.addEntity(21, 21, new Entity(grid,player,"Enemy",false,7)));
-		System.out.println(grid.addEntity(1, 1, new Entity(grid,null,"Player",true,1)));
-		System.out.println(grid.addEntity(25, 25, new Entity(grid,player,"Enemy",false,7)));
-	
+		System.out.println(grid.addEntity(21, 21, new Human(grid,player,"Enemy",false,7)));
+		System.out.println(grid.addEntity(1, 1, new Human(grid,null,"Player",true,1)));
+		System.out.println(grid.addEntity(25, 25, new Human(grid,player,"Enemy",false,7)));
+		loop();
 	}
+	public void loop()
+	{
+		int timerDelay = 20;
+		new Timer(timerDelay,new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				grid.act(key);
+				key = -1;
+				repaint();
+				}
+			}).start();
+		}
+	
+	
 	public class KeyListener extends KeyAdapter {
 
 		@Override
@@ -84,7 +93,7 @@ public class Run extends JFrame {
 				key = -1;
 			}
 			
-			grid.act(key);
+			
 		
 		}}
 	
@@ -92,14 +101,14 @@ public class Run extends JFrame {
 
 
 	public static void main(String[] args) {
-		new Run();
-		// GameEngine.IGrid grid = new Grid(5,5);
-		// grid.updatePaths();
-		// grid.setWalkable(2,2,false);
-		// grid.updatePaths();
-		// System.out.println(grid.pathExists(0,0,2,3));
-		// System.out.println(grid.getPath(0,0,2,4));
+		SwingUtilities.invokeLater(new Runnable(){
+			public void run()
+			{
+				JFrame window = new Run();
+			}
+		});
 	}
+}
 
 	
-}
+
